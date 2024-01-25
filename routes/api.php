@@ -4,6 +4,7 @@ use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ProfissionalController;
 use App\Http\Controllers\ServicoController;
+use App\Http\Controllers\TipoDePagamentoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -75,6 +76,11 @@ Route::get('admin/profissional/all', [ProfissionalController::class, 'retornarTo
 Route::get('admin/servico/all',[ServicoController::class, 'retornarTodos']);
 Route::get('admin/cliente/all', [ClienteController::class, 'retornarTodos']);
 
+//Rota das Formas de Pagamento
+
+Route::post('formaPagamento/criar', [TipoDePagamentoController::class, 'tipoPagamento']);
+Route::delete('formaPagamento/delete/{id}', [TipoDePagamentoController::class, 'excluirPagamento']);
+Route::put('formaPagamento/update/{id}', [TipoDePagamentoController::class, 'updatePagamento']);
 
 
 
