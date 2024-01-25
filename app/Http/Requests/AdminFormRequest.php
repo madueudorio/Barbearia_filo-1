@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class AgendaUpdateFormRequest extends FormRequest
+class AdminFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,10 @@ class AgendaUpdateFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nome' => 'max:120|min:5 ',
-            'email' => 'max:120|email:rfc,|unique:clientes,email,'. $this->id,
-            'cpf' => '|max:11|min:11|unique:clientes,cpf,'. $this->id,
-            'senha' => ''
+            'nome' => 'required|max:120|min:5 ',
+            'email' => 'required|max:120|unique:administradors,email|email:rfc,dns',
+            'cpf' => 'required|unique:administradors,cpf|max:11|min:11',
+            'senha' => 'required'
         ];
     }
 
@@ -42,13 +42,16 @@ class AgendaUpdateFormRequest extends FormRequest
     public function messages()
     {
         return [
+            'nome.required' => "O campo nome é obrigatorio",
             'nome.max' => 'O campo nome deve conter no máximo 120 caracteres',
             'nome.min' => 'O campo nome deve conter no minimo 5 caracteres',
 
+            'email.required' => 'Email obrigatorio',
             'email.max' => 'O campo e-mail deve conter no máximo 120 caracteres',
             'email.email' => 'Formato de email invalido',
             'email.unique' => 'E-mail já cadastrado',
 
+            'cpf.required' => 'CPF obrigatório',
             'cpf.max' => 'CPF deve conter no máximo 11 caracteres',
             'cpf.min' => 'CPF deve conter no mínimo 11 caracteres',
             'cpf.unique' => 'CPF Já cadastrado no sistema',
@@ -57,4 +60,3 @@ class AgendaUpdateFormRequest extends FormRequest
         ];
     }
 }
-

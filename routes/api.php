@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ProfissionalController;
@@ -75,6 +76,7 @@ Route::delete('admin/servico/delete/{id}',[ServicoController::class,'excluirServ
 Route::get('admin/profissional/all', [ProfissionalController::class, 'retornarTodos']);
 Route::get('admin/servico/all',[ServicoController::class, 'retornarTodos']);
 Route::get('admin/cliente/all', [ClienteController::class, 'retornarTodos']);
+Route::post('admin/criar-admin',[AdminController::class,'criarAdmin']);
 
 //Rota das Formas de Pagamento
 
