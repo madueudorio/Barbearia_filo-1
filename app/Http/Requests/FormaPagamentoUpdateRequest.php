@@ -13,7 +13,7 @@ class FormaPagamentoUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +25,7 @@ class FormaPagamentoUpdateRequest extends FormRequest
     {
         return [
 
-            'nome' => 'required|max:25|unique:tipo_de_pagamentos,nome'. $this->id,
+            'nome' => 'required|max:25|unique:tipo_de_pagamentos,nome,'. $this->id,
             'taxa' => 'required|max:25',
             'status' => 'required|max:11|boolean'
         ];

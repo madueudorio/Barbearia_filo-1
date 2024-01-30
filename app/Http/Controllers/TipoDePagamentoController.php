@@ -11,15 +11,17 @@ class TipoDePagamentoController extends Controller
 {
     public function tipoPagamento(FormaPagamentoRequest $request)
     {
-        $pagamento = TipoDePagamento::create([
-            'tipoPagamento' => $request->tipoPagamento,
+        $tipoPagamento = TipoDePagamento::create([
+            'nome' => $request->nome,
+            'taxa'=> $request->taxa,
+            'status'=> $request->status
            
             
         ]);
         return response()->json([
             "sucess" => true,
             "message" => "Métodos de Pagamento Adicionado",
-            "data" => $pagamento
+            "data" => $tipoPagamento
         ], 200);
     }
 
@@ -43,18 +45,22 @@ class TipoDePagamentoController extends Controller
     }
 
     public function updatePagamento(FormaPagamentoUpdateRequest $request)
-    {
-        $pagamento = TipoDePagamento::find($request->id);
+    { $pagamento= TipoDePagamento::find($request->id);
 
         if (!isset($pagamento)) {
             return response()->json([
                 'status' => false,
-                'message' => 'Tipo de Pagamento não encontrado'
+                'message' => "Pagamento não atualizado"
             ]);
         }
-
-        if (isset($request->tipoPagamento)) {
-            $pagamento->tipoPagamento = $request->tipoPagamento;
+        if (isset($request->nome)) {
+            $pagamento->nome = $request->nome;
+        }
+        if (isset($request->taxa)) {
+            $pagamento->taxa = $request->taxa;
+        }
+        if (isset($request->status)) {
+            $pagamento->status = $request->status;
         }
         $pagamento->update();
 

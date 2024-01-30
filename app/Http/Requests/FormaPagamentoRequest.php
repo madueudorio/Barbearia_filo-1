@@ -25,7 +25,7 @@ class FormaPagamentoRequest extends FormRequest
     {
         return [
 
-            'nome' => 'required|max:25|unique:pagamentos,nome',
+            'nome' => 'required|max:25|unique:tipo_de_pagamentos,nome',
             'taxa' => 'required|max:25',
             'status' => 'required|max:11|boolean'
         ];

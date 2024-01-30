@@ -105,7 +105,7 @@ class ClienteController extends Controller
         if (!isset($cliente)) {
             return response()->json([
                 'status' => false,
-                'message' => "Clientes não atualizado"
+                'message' => "Cliente não atualizado"
             ]);
         }
         if (isset($request->celular)) {
@@ -169,7 +169,8 @@ class ClienteController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => "Cliente atualizados"
+            'message' => "Cliente atualizados",
+            'data'=> $cliente
         ]);
     }
 
@@ -226,24 +227,25 @@ class ClienteController extends Controller
 
     public function esqueciMinhaSenha(Request $request)
     {
-        $cliente = Cliente::where('email', 'LIKE', $request->email)->first();
-        if ($cliente) {
-            $novaSenha = $cliente->cpf;
-            $cliente->update([
-                'senha' => //Hash::make
-                ($novaSenha),
-                'updated_at' => now()
-            ]);
-            return response()->json([
-                'status' => true,
-                'message' => 'Senha redefinida',
-                'nova_senha' => Hash::make($novaSenha)
-            ]);
-        } else {
-            return response()->json([
-                'status' => false,
-                'message' => 'Cliente não encontrado'
-            ]);
-        }
+       $cliente = Cliente::where('email', 'LIKE', $request->email)->first();
+       if ($cliente) {
+           $novaSenha = $cliente->cpf;
+           $cliente->update([
+               'senha' => //Hash::make
+               ($novaSenha),
+               'updated_at' => now()
+           ]);
+           return response()->json([        
+               'status' => true,
+               'message' => 'Senha redefinida',
+               'nova_senha' => //Hash::
+               ($novaSenha)
+           ]);
+       } else {
+           return response()->json([
+               'status' => false,
+               'message' => 'cliente não encontrado'
+           ]);
+       }
     }
 }
