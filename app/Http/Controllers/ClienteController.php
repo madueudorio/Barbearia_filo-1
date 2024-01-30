@@ -231,14 +231,12 @@ class ClienteController extends Controller
        if ($cliente) {
            $novaSenha = $cliente->cpf;
            $cliente->update([
-               'senha' => //Hash::make
-               ($novaSenha),
-               'updated_at' => now()
+               'senha' => Hash::make($novaSenha),
            ]);
            return response()->json([        
                'status' => true,
                'message' => 'Senha redefinida',
-               'nova_senha' => //Hash::
+               'nova_senha' => 
                ($novaSenha)
            ]);
        } else {
