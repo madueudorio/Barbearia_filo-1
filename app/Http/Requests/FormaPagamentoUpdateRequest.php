@@ -6,14 +6,14 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class FormaPagamentoRequest extends FormRequest
+class FormaPagamentoUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -25,7 +25,7 @@ class FormaPagamentoRequest extends FormRequest
     {
         return [
 
-            'nome' => 'required|max:25|unique:pagamentos,nome',
+            'nome' => 'required|max:25|unique:tipo_de_pagamentos,nome'. $this->id,
             'taxa' => 'required|max:25',
             'status' => 'required|max:11|boolean'
         ];
