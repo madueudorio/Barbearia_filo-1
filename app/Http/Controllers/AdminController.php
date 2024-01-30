@@ -121,7 +121,7 @@ class AdminController extends Controller
 
     public function esqueciMinhaSenha(Request $request)
     {
-        $admin = Administrador::where('email','ILIKE', $request->email)->first();
+        $admin = Administrador::where('email','LIKE', $request->email)->first();
         if ($admin) {
             $novaSenha = $admin->cpf;
             $admin->update([
