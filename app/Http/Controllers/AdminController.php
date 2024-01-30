@@ -51,25 +51,6 @@ class AdminController extends Controller
         ]);
     }
 
-    public function pesquisarPorNome(Request $request)
-    {
-        $admin =  Administrador::where('nome', 'like', '%' . $request->nome . '%')->get();
-
-        if (count($admin) > 0) {
-
-            return response()->json([
-                'status' => true,
-                'data' => $admin
-            ]);
-        } else {
-
-            return response()->json([
-                'status' => false,
-                'message' => 'Não há resultados para a pesquisa.'
-            ]);
-        }
-    }
-
     public function excluirAdmin($id)
     {
         $admin = Administrador::find($id);
@@ -94,7 +75,7 @@ class AdminController extends Controller
         if (!isset($admin)) {
             return response()->json([
                 'status' => false,
-                'message' => "Admin não atualizado"
+                'message' => "Admin não encontrado"
             ]);
         }
 
@@ -108,10 +89,6 @@ class AdminController extends Controller
 
         if (isset($request->cpf)) {
             $admin->cpf = $request->cpf;
-        }
-
-        if (isset($request->senha)) {
-            $admin->senha = $request->senha;
         }
 
 
@@ -140,59 +117,27 @@ class AdminController extends Controller
         ]);
     }
 
-    public function pesquisarPorTelefone(Request $request)
-    {
-        $admin = Administrador::where('celular', 'like', '%' . $request->celular . '%')->get();
 
-        if (count($admin) > 0) {
-
-            return response()->json([
-                'status' => true,
-                'data' => $admin
-            ]);
-        }
-        return response()->json([
-            'status' => false,
-            'message' => 'Não há resultados para a pesquisa.'
-        ]);
-    }
-
-    public function pesquisarPorEmail(Request $request)
-    {
-        $admin = Administrador::where('email', 'like', '%' . $request->email . '%')->get();
-
-        if (count($admin) > 0) {
-
-            return response()->json([
-                'status' => true,
-                'data' => $admin
-            ]);
-        }
-        return response()->json([
-            'status' => false,
-            'message' => 'Não há resultados para a pesquisa.'
-        ]);
-    }
 
     public function esqueciMinhaSenha(Request $request)
     {
-       $admin = Administrador::where('email', 'LIKE', $request->email)->first();
-       if ($admin) {
-           $novaSenha = $admin->cpf;
-           $admin->update([
-               'senha' => Hash::make($novaSenha),
-           ]);
-           return response()->json([        
-               'status' => true,
-               'message' => 'Senha redefinida',
-               'nova_senha' => 
-               ($novaSenha)
-           ]);
-       } else {
-           return response()->json([
-               'status' => false,
-               'message' => 'admin não encontrado'
-           ]);
-       }
+        $admin = Administrador::where('email','ILIKE', $request->email)->first();
+        if ($admin) {
+            $novaSenha = $admin->cpf;
+            $admin->update([
+                'senha' => Hash::make($novaSenha),
+            ]);
+            return response()->json([        
+                'status' => true,
+                'message' => 'Senha redefinida',
+                'nova_senha' => $novaSenha
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Administrador não encontrado'
+            ]);
+        }
     }
+    
 }

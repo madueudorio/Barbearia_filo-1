@@ -95,6 +95,8 @@ Route::post('admin/cliente/atualizar/senha', [ClienteController::class, 'esqueci
 Route::post('admin/atualizar/senha', [AdminController::class, 'esqueciMinhaSenha']);
 Route::delete('admin/excluir/{id}', [AdminController::class, 'excluirAdmin']);
 Route::put('admin/atualizar', [AdminController::class, 'atualizarAdmin']);
+Route::get('admin/retornarTodos', [AdminController::class, 'retornarTodos']);
+
 
 
 
