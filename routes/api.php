@@ -89,10 +89,10 @@ Route::post('admin/criar-admin',[AdminController::class,'criarAdmin']);
 
 //Rota das Formas de Pagamento
 
-Route::post('pagamento/cadastrar', [PagamentoController::class, 'tipoPagamento']);
-Route::delete('pagamento/excluir/{id}', [PagamentoController::class, 'excluirPagamento']);
-Route::put('pagamento/update/{id}', [PagamentoController::class, 'updatePagamento']);
-Route::get('pagamento/retornarTodos', [PagamentoController::class, 'retornarTodos']);
+Route::post('pagamento/cadastrar', [TipoDePagamentoController::class, 'tipoPagamento']);
+Route::delete('pagamento/excluir/{id}', [TipoDePagamentoController::class, 'excluirPagamento']);
+Route::put('pagamento/update/{id}', [TipoDePagamentoController::class, 'updatePagamento']);
+Route::get('pagamento/retornarTodos', [TipoDePagamentoController::class, 'retornarTodos']);
 
 
 
