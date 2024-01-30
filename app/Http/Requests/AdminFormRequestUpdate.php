@@ -25,8 +25,8 @@ class AdminFormRequestUpdate extends FormRequest
     {
         return [
             'nome' => 'max:120|min:5 ',
-            'celular' => 'max:11|min:10',
-            'cpf' => '|max:11|min:11|unique:administradors,cpf,'. $this->id,
+            'email' => 'max:120|email:rfc,|unique:administradors,email,'. $this->id,
+            'cpf' => 'max:11|min:11|unique:administradors,cpf,'. $this->id,
             'senha' => ''
         ];
     }

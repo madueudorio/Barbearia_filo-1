@@ -32,7 +32,7 @@ class AdminController extends Controller
         if ($admin == null) {
             return response()->json([
                 'status' => false,
-                'message' => "cliente não encontrado"
+                'message' => "Admin não encontrado"
             ]);
         }
         return response()->json([
@@ -70,24 +70,24 @@ class AdminController extends Controller
         }
     }
 
-    public function excluirCliente($id)
+    public function excluirAdmin($id)
     {
        $admin = Administrador::find($id);
 
         if (!isset($admin)) {
             return response()->json([
                 'status' => false,
-                'message' => "cliente não encontrado"
+                'message' => "Admin não encontrado"
             ]);
         }
        $admin->delete();
         return response()->json([
             'status' => true,
-            'message' => "cliente excluido com sucesso"
+            'message' => "Admin excluido com sucesso"
         ]);
     }
 
-    public function atualizarCliente(AdminFormRequestUpdate $request)
+    public function atualizarAdmin(AdminFormRequestUpdate $request)
     {
        $admin = Administrador::find($request->id);
 
@@ -96,9 +96,6 @@ class AdminController extends Controller
                 'status' => false,
                 'message' => "Admin não atualizado"
             ]);
-        }
-        if (isset($request->celular)) {
-           $admin->celular = $request->celular;
         }
 
         if (isset($request->nome)) {
@@ -113,42 +110,6 @@ class AdminController extends Controller
            $admin->cpf = $request->cpf;
         }
 
-        if (isset($request->dataNascimento)) {
-           $admin->dataNascimento = $request->dataNascimento;
-        }
-
-        if (isset($request->cidade)) {
-           $admin->cidade = $request->cidade;
-        }
-
-        if (isset($request->estado)) {
-           $admin->estado = $request->estado;
-        }
-
-        if (isset($request->pais)) {
-           $admin->pais = $request->pais;
-        }
-
-        if (isset($request->rua)) {
-           $admin->rua = $request->rua;
-        }
-
-        if (isset($request->numero)) {
-           $admin->numero = $request->numero;
-        }
-
-        if (isset($request->bairro)) {
-           $admin->bairro = $request->bairro;
-        }
-
-        if (isset($request->cep)) {
-           $admin->cep = $request->cep;
-        }
-
-        if (isset($request->complemento)) {
-           $admin->complemento = $request->complemento;
-        }
-
         if (isset($request->senha)) {
            $admin->senha = $request->senha;
         }
@@ -158,7 +119,7 @@ class AdminController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => "Cliente atualizados"
+            'message' => "Admin atualizados"
         ]);
     }
 
@@ -219,19 +180,19 @@ class AdminController extends Controller
         if ($admin) {
             $novaSenha =$admin->cpf;
            $admin->update([
-                'senha' => //Hash::make
+                'senha' => 
                 ($novaSenha),
-                'updated_at' => now()
             ]);
             return response()->json([
                 'status' => true,
                 'message' => 'Senha redefinida',
-                'nova_senha' => Hash::make($novaSenha)
+                'nova_senha' =>
+                ($novaSenha)
             ]);
         } else {
             return response()->json([
                 'status' => false,
-                'message' => 'Cliente não encontrado'
+                'message' => 'Admin não encontrado'
             ]);
         }
     }

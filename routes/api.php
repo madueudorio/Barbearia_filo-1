@@ -86,6 +86,17 @@ Route::get('admin/profissional/all', [ProfissionalController::class, 'retornarTo
 Route::get('admin/servico/all',[ServicoController::class, 'retornarTodos']);
 Route::get('admin/cliente/all', [ClienteController::class, 'retornarTodos']);
 Route::post('admin/criar-admin',[AdminController::class,'criarAdmin']);
+Route::get('admin/pagamento/retornarTodos', [TipoDePagamentoController::class, 'retornarTodos']);
+Route::put('admin/pagamento/update/{id}', [TipoDePagamentoController::class, 'updatePagamento']);
+Route::delete('admin/pagamento/excluir/{id}', [TipoDePagamentoController::class, 'excluirPagamento']);
+Route::post('admin/pagamento/cadastrar', [TipoDePagamentoController::class, 'tipoPagamento']);
+Route::post('admin/profissional/atualizar/senha', [ProfissionalController::class, 'esqueciMinhaSenha']);
+Route::post('admin/cliente/atualizar/senha', [ClienteController::class, 'esqueciMinhaSenha']);
+Route::post('admin/atualizar/senha', [AdminController::class, 'esqueciMinhaSenha']);
+Route::delete('admin/excluir/{id}', [AdminController::class, 'excluirAdmin']);
+Route::put('admin/atualizar', [AdminController::class, 'atualizarAdmin']);
+
+
 
 //Rota das Formas de Pagamento
 
