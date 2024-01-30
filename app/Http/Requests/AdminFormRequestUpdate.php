@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class AdminFormRequestUpdate extends FormRequest
 {
@@ -11,7 +13,7 @@ class AdminFormRequestUpdate extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +24,33 @@ class AdminFormRequestUpdate extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nome' => 'max:120|min:5 ',
+            'celular' => 'max:11|min:10',
+            'cpf' => '|max:11|min:11|unique:administradors,cpf,'. $this->id,
+            'senha' => ''
+        ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'success' => false,
+            'error' => $validator->errors()
+        ]));
+    }
+
+    public function messages()
+    {
+        return [
+            'nome.max' => 'O campo nome deve conter no máximo 120 caracteres',
+            'nome.min' => 'O campo nome deve conter no minimo 5 caracteres',
+            'email.max' => 'O campo e-mail deve conter no máximo 120 caracteres',
+            'email.email' => 'Formato de email invalido',
+            'email.unique' => 'E-mail já cadastrado',
+            'cpf.max' => 'CPF deve conter no máximo 11 caracteres',
+            'cpf.min' => 'CPF deve conter no mínimo 11 caracteres',
+            'cpf.unique' => 'CPF Já cadastrado no sistema',
+            'senha.required' => 'Senha obrigatoria'
         ];
     }
 }

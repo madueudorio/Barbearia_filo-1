@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('tipo_de_pagamentos', function (Blueprint $table) {
             $table->id();
-            $table->string('tipoDePagamento', 25,)->nullable(false);
+            $table->string('nome', 25)->nullable(false);
+            $table->string('taxa', 25)->nullable(false);
+            $table->boolean('status', 11)->nullable(false);
             $table->timestamps();
         });
     }
